@@ -1,0 +1,31 @@
+name: Documentation
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'docs/**'
+      - '**.md'
+
+jobs:
+  docs:
+    name: Generate Documentation
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup PasDoc
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y pasdoc
+
+    - name: Generate Documentation
+      run: |
+        pasdoc --output docs/api --format html src/**/*.pas
+
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./docs/api 

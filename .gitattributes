@@ -1,0 +1,60 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Pascal source files
+*.pas text diff=pascal
+*.pp text diff=pascal
+*.inc text diff=pascal
+*.lpr text diff=pascal
+*.lfm text diff=pascal
+*.lpi text diff=pascal
+*.lps text diff=pascal
+
+# Documentation
+*.md text diff=markdown
+*.txt text
+*.pdf binary
+*.doc binary
+*.docx binary
+
+# Image files
+*.jpg binary
+*.jpeg binary
+*.png binary
+*.gif binary
+*.ico binary
+*.bmp binary
+
+# Model files
+*.dat binary
+*.pb binary
+*.pbtxt text
+*.caffemodel binary
+*.prototxt text
+
+# Scripts
+*.sh text eol=lf
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Configuration files
+*.json text
+*.xml text
+*.yml text
+*.yaml text
+*.conf text
+
+# Exclude files from exporting
+.gitattributes export-ignore
+.gitignore export-ignore
+.github/ export-ignore
+tests/ export-ignore
+docs/ export-ignore
+
+# Binary files
+*.exe binary
+*.dll binary
+*.so binary
+*.dylib binary
+*.a binary
+*.lib binary

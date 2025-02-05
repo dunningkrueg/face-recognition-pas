@@ -1,0 +1,35 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup Free Pascal
+      uses: gcarreno/setup-lazarus@v3
+      with:
+        lazarus-version: '3.2.2'
+
+    - name: Build Release
+      run: |
+        fpc -O3 src/Main.pas
+        zip -r FaceRecognition-${{ github.ref_name }}.zip FaceRecognition models/ README.md LICENSE
+
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          FaceRecognition-${{ github.ref_name }}.zip
+        body_path: CHANGELOG.md
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 

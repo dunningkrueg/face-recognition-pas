@@ -1,0 +1,80 @@
+# Binary and Object files
+*.exe
+*.dll
+*.so
+*.dylib
+*.lrs
+*.res
+*.compiled
+*.o
+*.ppu
+*.rsj
+*.a
+
+# Lazarus specific
+backup/
+lib/
+*.lps
+*.lpi
+*.or
+*.dbg
+*.dcu
+
+# Debug files
+*.dbg
+*.drc
+*.map
+*.tds
+
+# Model files and datasets
+models/*.dat
+models/*.pb
+models/*.pbtxt
+models/*.caffemodel
+models/*.prototxt
+training_data/*
+!training_data/.gitkeep
+test_images/*
+!test_images/.gitkeep
+
+# IDE specific
+.idea/
+.vscode/
+*.sublime-workspace
+*.sublime-project
+
+# Temporary files
+*.bak
+*.tmp
+*.temp
+~*
+*~
+
+# Log files
+*.log
+log/
+logs/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# Project specific
+output/
+cache/
+dist/
+build/
+
+# Keep these files
+!.gitkeep 

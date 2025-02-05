@@ -1,0 +1,31 @@
+name: Code Quality
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  lint:
+    name: Static Analysis
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup Free Pascal
+      uses: gcarreno/setup-lazarus@v3
+      with:
+        lazarus-version: '3.2.2'
+
+    - name: Install Pascal Linter
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y fppkg
+        fppkg install ptop
+
+    - name: Run Linter
+      run: |
+        ptop --recursive src/
+        ptop --check-style src/ 

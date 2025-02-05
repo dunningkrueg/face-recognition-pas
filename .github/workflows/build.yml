@@ -1,0 +1,45 @@
+name: Build and Test
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  build:
+    name: Build and Test
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        fpc-version: ['3.2.2']
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup Free Pascal
+      uses: gcarreno/setup-lazarus@v3
+      with:
+        lazarus-version: ${{ matrix.fpc-version }}
+        with-cache: true
+
+    - name: Install Dependencies (Ubuntu)
+      if: matrix.os == 'ubuntu-latest'
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libopencv-dev libdlib-dev
+
+    - name: Install Dependencies (macOS)
+      if: matrix.os == 'macos-latest'
+      run: |
+        brew install opencv dlib
+
+    - name: Compile Project
+      run: |
+        fpc -O2 -gl src/Main.pas
+
+    - name: Run Tests
+      run: |
+        fpc -O2 -gl tests/TestRunner.pas
+        ./TestRunner 
